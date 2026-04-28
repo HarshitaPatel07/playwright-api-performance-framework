@@ -7,7 +7,10 @@ export const TEST_DATA = {
     users: {
         validUser: {
             username: 'standard_user',
-            password: 'secret_sauce'
+            password: 'secret_sauce',
+            firstName: 'John',
+            lastName: 'Doe',
+            postalCode: '402'
         }
     }
 }

@@ -29,4 +29,38 @@ export class ProductPage {
       this.page.getByRole("button", { name: "Back to products" }),
     ).toBeVisible();
   }
+
+  async checkout(
+    products: string[],
+    userDetails: {
+      firstName: string;
+      lastName: string;
+      postalCode: string;
+    },
+  ) {
+    for (const product of products) {
+      const item = this.page
+        .locator('[data-test="inventory-item"]')
+        .filter({ hasText: product });
+      await item.getByRole("button", { name: "Add to cart" }).click();
+    }
+
+    await this.page.locator('[data-test="shopping-cart-link"]').click();
+
+    await this.page.locator('[data-test="checkout"]').click();
+    await this.page
+      .locator('[data-test="firstName"]')
+      .fill(userDetails.firstName);
+    await this.page
+      .locator('[data-test="lastName"]')
+      .fill(userDetails.lastName);
+    await this.page
+      .locator('[data-test="postalCode"]')
+      .fill(userDetails.postalCode);
+    await this.page.locator('[data-test="continue"]').click();
+    await this.page.locator('[data-test="finish"]').click();
+    await expect(
+      this.page.locator('[data-test="complete-header"]'),
+    ).toContainText("Thank you for your order!");
+  }
 }
