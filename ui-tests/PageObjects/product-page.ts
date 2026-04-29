@@ -30,21 +30,33 @@ export class ProductPage {
     ).toBeVisible();
   }
 
-  async checkout(
-    products: string[],
-    userDetails: {
-      firstName: string;
-      lastName: string;
-      postalCode: string;
-    },
-  ) {
+  async addToCart(products: string[]) {
     for (const product of products) {
       const item = this.page
         .locator('[data-test="inventory-item"]')
         .filter({ hasText: product });
       await item.getByRole("button", { name: "Add to cart" }).click();
     }
+  }
 
+  async addToCartFromDetailsPage(product: string) {
+    await this.page
+      .locator('[data-test="inventory-item-name"]')
+      .filter({ hasText: product })
+      .click();
+
+    await this.page.getByRole("button", { name: "Add to cart" }).click();
+
+    await expect(
+      this.page.getByRole("button", { name: "Remove" }),
+    ).toBeVisible();
+  }
+
+  async checkout(userDetails: {
+    firstName: string;
+    lastName: string;
+    postalCode: string;
+  }) {
     await this.page.locator('[data-test="shopping-cart-link"]').click();
 
     await this.page.locator('[data-test="checkout"]').click();
