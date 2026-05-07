@@ -5,21 +5,20 @@ from typing import Optional
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from config import BASE_URL, ACCESS_TOKEN
+from .base_api import BaseAPI
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
 
-class Users:
+class Users(BaseAPI):
     """Users API Object for managing user endpoints."""
     
     def __init__(self):
-        self.base_url = BASE_URL
-        self.access_token = f'Bearer {ACCESS_TOKEN}'
         self.endpoint = '/users'
+        super().__init__(endpoint=self.endpoint)
 
-    def get_users(self, params: Optional[dict] = None) -> requests.Response:
+    def get_user(self, params: Optional[dict] = None) -> requests.Response:
         """
         Fetch all users from the API.
         
@@ -30,7 +29,7 @@ class Users:
             requests.Response: API response object
         """
         url = f"{self.base_url}{self.endpoint}"
-        headers = {"Authorization": self.access_token}
+        headers = self._get_headers()
         
         try:
             response = requests.get(url, params=params, headers=headers)
@@ -52,7 +51,7 @@ class Users:
             requests.Response: API response object
         """
         url = f"{self.base_url}{self.endpoint}/{user_id}"
-        headers = {"Authorization": self.access_token}
+        headers = self._get_headers()
         
         try:
             response = requests.get(url, params=params, headers=headers)
@@ -73,7 +72,7 @@ class Users:
             requests.Response: API response object
         """
         url = f"{self.base_url}{self.endpoint}"
-        headers = {"Authorization": self.access_token}
+        headers = self._get_headers()
         
         try:
             response = requests.post(url, json=payload, headers=headers)
@@ -95,7 +94,7 @@ class Users:
             requests.Response: API response object
         """
         url = f"{self.base_url}{self.endpoint}/{user_id}"
-        headers = {"Authorization": self.access_token}
+        headers = self._get_headers()
         
         try:
             response = requests.patch(url, json=payload, headers=headers)
@@ -116,7 +115,7 @@ class Users:
             requests.Response: API response object
         """
         url = f"{self.base_url}{self.endpoint}/{user_id}"
-        headers = {"Authorization": self.access_token}
+        headers = self._get_headers()
         
         try:
             response = requests.delete(url, headers=headers)
