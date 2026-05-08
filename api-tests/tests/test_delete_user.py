@@ -13,7 +13,7 @@ def test_delete_user():
     
     name = "John Brown"
     logger.info("Get user details")
-    response = users_api.get_users({name: name})
+    response = users_api.get_user({name: name})
     data = response.json()
     user_id = data[0]["id"]
     
