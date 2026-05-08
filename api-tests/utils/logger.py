@@ -2,6 +2,7 @@ import logging
 import os
 from datetime import datetime
 
+# path to the logs/ dir
 LOGS_DIR = os.path.join(os.path.dirname(__file__), '..', 'logs')
 os.makedirs(LOGS_DIR, exist_ok=True)
 
@@ -13,7 +14,7 @@ _SESSION_LOG_FILE = None
 
 def init_session_logger(test_name: str):
     """
-    Call this once at session start (from conftest.pytest_configure)
+    This gets called once at session start (from conftest.pytest_configure)
     to lock in the log file name before any logger is created.
     
     Args:

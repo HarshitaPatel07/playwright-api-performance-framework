@@ -17,7 +17,7 @@ def test_get_users():
     users_api = Users()
     
     logger.info("Fetching all users")
-    response = users_api.get_users()
+    response = users_api.get_user()
     
     assert response.status_code == 200, f"Expected 200, got {response.status_code}"
     
