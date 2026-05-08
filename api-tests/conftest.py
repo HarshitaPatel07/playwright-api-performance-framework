@@ -1,13 +1,10 @@
 import pytest
 import logging
-import sys
 import os
 import glob
 import shutil
 
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-
-from utils.logger import init_session_logger, get_logger, LOGS_DIR
+from src.utils.logger import init_session_logger, get_logger, LOGS_DIR
 
 def pytest_configure(config):
     test_paths = config.args

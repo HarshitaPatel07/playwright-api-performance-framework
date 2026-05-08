@@ -6,7 +6,7 @@ from typing import Optional, Dict
 from abc import ABC
 
 from config import BASE_URL, ACCESS_TOKEN
-from utils.logger import get_logger
+from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 

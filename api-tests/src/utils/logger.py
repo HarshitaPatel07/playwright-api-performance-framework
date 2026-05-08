@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 # path to the logs/ dir
-LOGS_DIR = os.path.join(os.path.dirname(__file__), '..', 'logs')
+LOGS_DIR = os.path.join(os.path.dirname(__file__), '..', '..', 'logs')
 os.makedirs(LOGS_DIR, exist_ok=True)
 
 LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"

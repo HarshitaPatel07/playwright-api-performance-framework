@@ -1,17 +1,14 @@
 import requests
-import os
-import sys
 from typing import Optional
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from .base_api import BaseAPI
-from utils.logger import get_logger
+from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
 
-class Users(BaseAPI):
+class UsersClient(BaseAPI):
     """Users API Object for managing user endpoints."""
     
     def __init__(self):
