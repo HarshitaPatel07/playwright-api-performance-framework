@@ -13,3 +13,6 @@ playwright/.auth/
 __pycache__/
 .env
 logs/
+
+# IDE
+.vscode/
