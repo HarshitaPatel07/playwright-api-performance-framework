@@ -52,6 +52,19 @@ class UsersClient(BaseAPI):
         """
         return self.request("POST", self.endpoint, json=payload)
 
+    def partial_update_user(self, user_id: int, payload: dict):
+        """
+        Partially update a user by ID
+
+        Args:
+            user_id: The user ID to update
+            payload: the payload to update user
+
+        Returns:
+            requests.Response: API response object
+        """
+        return self.request("PATCH", f"{self.endpoint}/{user_id}", json=payload)
+
     def update_user(self, user_id: int, payload: dict):
         """
         Update a user by ID
@@ -63,7 +76,7 @@ class UsersClient(BaseAPI):
         Returns:
             requests.Response: API response object
         """
-        return self.request("PATCH", f"{self.endpoint}/{user_id}", json=payload)
+        return self.request("PUT", f"{self.endpoint}/{user_id}", json=payload)
 
     def delete_user(self, user_id: int):
         """

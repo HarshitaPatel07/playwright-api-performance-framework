@@ -1,26 +1,44 @@
 """
 Test for Delete User.
 """
+
+import pytest
+
 from src.clients.users_client import UsersClient
 from src.utils.logger import get_logger
+from tests.data.test_data import create_user_payload
 
 logger = get_logger(__name__)
 
+users_api = UsersClient()
 
-def test_delete_user():
-    """Test deleting a user."""
-    users_api = UsersClient()
-    
-    name = "John Brown"
-    logger.info("Get user details")
-    response = users_api.get_user({name: name})
-    data = response.json()
-    user_id = data[0]["id"]
-    
-    logger.info("Deleting a user")
-    response = users_api.delete_user(user_id)
-    
-    assert response.status_code == 204, f"Expected 204, got {response.status_code}"
-    
-    logger.info("Successfully deleted user")
-    
+
+@pytest.fixture(scope="module")
+def user_to_delete():
+    """Create own user for DELETE tests"""
+    response = users_api.create_user(create_user_payload())
+    user = response.json()
+
+    yield user
+
+
+class TestDeleteUserPositive:
+    def test_delete_user(self, user_to_delete):
+        response = users_api.delete_user(user_to_delete["id"])
+        assert response.status_code == 204
+
+    def test_get_deleted_user(self, user_to_delete):
+        response = users_api.get_user_by_id(user_to_delete["id"])
+        assert response.status_code == 404
+
+
+class TestDeleteUserNegative:
+
+    def test_delete_deleted_user(self, user_to_delete):
+        response = users_api.delete_user(user_to_delete["id"])
+        assert response.status_code == 404
+
+    @pytest.mark.parametrize("user_id", [999999999, "abc"])
+    def test_delete_invalid_user_id(self, user_id):
+        response = users_api.delete_user(user_id)
+        assert response.status_code == 404
