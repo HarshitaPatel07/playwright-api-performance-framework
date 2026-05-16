@@ -41,10 +41,10 @@ class BaseAPI(ABC):
         url = f"{self.base_url}{endpoint}"
         headers = self._get_headers(kwargs.pop("extra_headers", None))
 
-        # if "json" in kwargs:
-        #     logger.debug(f"Request Body: {kwargs['json']}")
-        # if "params" in kwargs:
-        #     logger.debug(f"Query Params: {kwargs['params']}")
+        if "json" in kwargs:
+            logger.debug(f"Request Body: {kwargs['json']}")
+        if "params" in kwargs:
+            logger.debug(f"Query Params: {kwargs['params']}")
 
         try:
             response = requests.request(
@@ -52,7 +52,9 @@ class BaseAPI(ABC):
             )
             logger.info(f"{method} {url} - Status: {response.status_code}")
 
-            # logger.debug(f"Response Body: {response.json()}")
+            if response.content:
+                logger.debug(f"Response Body: {response.json()}")
+                
             return response
 
         except requests.RequestException as err:

@@ -19,25 +19,35 @@ def cleanup_user():
     created_ids = []
     yield created_ids
     for user_id in created_ids:
+        logger.info(f"Cleanup: deleting user with id={user_id}")
         users_api.delete_user(user_id)
 
 
 class TestCreateUserPositive:
     def test_create_valid_user(self, cleanup_user):
         payload = create_user_payload()
+        logger.info(f"Creating user with payload: {payload}")
+
         response = users_api.create_user(payload)
         assert_status_code(response, 201)
 
         data = response.json()
         cleanup_user.append(data["id"])
+        logger.info(f"User created with id={data['id']}")
 
         assert_field_exists(data, "id")
         assert_fields_match(data, payload, ["name", "email", "gender", "status"])
+        logger.info("All assertions passed for valid user creation")
 
 
 class TestCreateUserNegative:
 
     @pytest.mark.parametrize("payload, expected_status", CREATE_USER_INVALID_CASES)
     def test_create_invalid_payloads(self, payload, expected_status):
+        logger.info(
+            f"Testing invalid payload: {payload}, expecting status: {expected_status}"
+        )
+
         response = users_api.create_user(payload)
         assert_status_code(response, expected_status)
+        logger.info(f"Correctly rejected invalid payload with {response.status_code}")
