@@ -3,19 +3,12 @@ import logging
 import os
 import glob
 import shutil
+from pathlib import Path
 
-from src.utils.logger import init_session_logger, get_logger, LOGS_DIR
+from src.utils.logger import clear_test_log_file, get_logger, LOGS_DIR, set_test_log_file
 
 
 def pytest_configure(config):
-    test_paths = config.args
-    if test_paths:
-        test_name = os.path.splitext(os.path.basename(test_paths[0]))[0]
-    else:
-        test_name = "api_test"
-
-    init_session_logger(test_name)
-
     logging.getLogger("requests").setLevel(logging.WARNING)
     logging.getLogger("urllib3").setLevel(logging.WARNING)
 
@@ -35,6 +28,15 @@ def pytest_configure(config):
         )
         for log_file in old_log_files[:-10]:
             os.remove(log_file)
+
+
+@pytest.fixture(scope="module", autouse=True)
+def test_module_logger(request):
+    """Use one log file per test module."""
+    test_name = Path(str(request.node.fspath)).stem
+    set_test_log_file(test_name)
+    yield
+    clear_test_log_file()
 
 
 @pytest.fixture(autouse=True)
