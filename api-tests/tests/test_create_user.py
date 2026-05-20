@@ -6,7 +6,11 @@ import pytest
 
 from src.clients.users_client import UsersClient
 from src.utils.logger import get_logger
-from src.utils.assertions import *
+from src.utils.assertions import (
+    assert_status_code,
+    assert_field_exists,
+    assert_fields_match,
+)
 from tests.data.test_data import create_user_payload, CREATE_USER_INVALID_CASES
 
 logger = get_logger(__name__)
