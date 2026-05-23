@@ -2,11 +2,12 @@
 Base API class with common functionality.
 """
 
+import os
 import requests
 from typing import Optional, Dict
 from abc import ABC, abstractmethod
 
-from config import BASE_URL, ACCESS_TOKEN
+from config import BASE_URL
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -17,7 +18,6 @@ class BaseAPI(ABC):
 
     def __init__(self):
         self.base_url = BASE_URL
-        self.access_token = f"Bearer {ACCESS_TOKEN}" if ACCESS_TOKEN else None
 
     @property
     @abstractmethod
@@ -28,9 +28,12 @@ class BaseAPI(ABC):
         self, extra_headers: Optional[Dict[str, str]] = None
     ) -> Dict[str, str]:
         """Get default headers with optional extras."""
+        
+        access_token = os.getenv("ACCESS_TOKEN")
+        
         headers = {"Content-Type": "application/json"}
-        if self.access_token:
-            headers["Authorization"] = self.access_token
+        if access_token:
+            headers["Authorization"] = f"Bearer {access_token}"
         if extra_headers:
             headers.update(extra_headers)
         return headers
