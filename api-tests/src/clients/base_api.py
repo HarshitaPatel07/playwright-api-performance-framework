@@ -54,6 +54,8 @@ class BaseAPI(ABC):
 
             if response.content:
                 logger.debug(f"Response Body: {response.json()}")
+            else:
+                logger.debug("Response Body: empty")
                 
             return response
 

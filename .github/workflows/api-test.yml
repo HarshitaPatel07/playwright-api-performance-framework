@@ -26,3 +26,5 @@ jobs:
       - name: Run API tests
         run: pytest tests/ -v --tb=short
         working-directory: api-tests
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
