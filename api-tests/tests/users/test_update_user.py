@@ -11,7 +11,7 @@ from src.utils.assertions import (
     assert_fields_match,
     assert_fields_unchanged,
 )
-from tests.data.test_data import (
+from tests.data.user_data import (
     create_user_payload,
     update_user_payload,
     UPDATE_USER_NAME,

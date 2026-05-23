@@ -11,7 +11,7 @@ from src.utils.assertions import (
     assert_fields_match,
     assert_response_is_list,
 )
-from tests.data.test_data import create_user_payload
+from tests.data.user_data import create_user_payload
 
 logger = get_logger(__name__)
 

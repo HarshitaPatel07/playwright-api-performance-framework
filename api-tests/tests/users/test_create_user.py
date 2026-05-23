@@ -11,7 +11,7 @@ from src.utils.assertions import (
     assert_field_exists,
     assert_fields_match,
 )
-from tests.data.test_data import create_user_payload, CREATE_USER_INVALID_CASES
+from tests.data.user_data import create_user_payload, CREATE_USER_INVALID_CASES
 
 logger = get_logger(__name__)
 users_api = UsersClient()
