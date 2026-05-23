@@ -23,6 +23,18 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Verify ACCESS_TOKEN secret
+        run: |
+          python - <<'PY'
+          import os
+          token = os.getenv('ACCESS_TOKEN')
+          print('ACCESS_TOKEN set:', bool(token))
+          print('ACCESS_TOKEN length:', len(token or '0'))
+          PY
+        working-directory: api-tests
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
       - name: Run API tests
         run: pytest tests/ -v --tb=short
         working-directory: api-tests
