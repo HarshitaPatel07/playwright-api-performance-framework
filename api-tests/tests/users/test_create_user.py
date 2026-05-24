@@ -55,3 +55,4 @@ class TestCreateUserNegative:
         response = users_api.create_user(payload)
         assert_status_code(response, expected_status)
         logger.info(f"Correctly rejected invalid payload with {response.status_code}")
+
