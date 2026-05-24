@@ -44,7 +44,8 @@ jobs:
           token = os.getenv("ACCESS_TOKEN")
           headers = {
               "Content-Type": "application/json",
-              "Authorization": f"Bearer {token}"
+              "Authorization": f"Bearer {token}",
+              "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
           }
           print("Headers:", headers)
           response = requests.get("https://gorest.co.in/public/v2/users", headers=headers)
