@@ -28,12 +28,10 @@ class BaseAPI(ABC):
         self, extra_headers: Optional[Dict[str, str]] = None
     ) -> Dict[str, str]:
         """Get default headers with optional extras."""
-        
+
         access_token = os.getenv("ACCESS_TOKEN")
-        
-        headers = {"Content-Type": "application/json",
-                   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-                  }
+
+        headers = {"Content-Type": "application/json"}
         if access_token:
             headers["Authorization"] = f"Bearer {access_token}"
         if extra_headers:
@@ -61,7 +59,7 @@ class BaseAPI(ABC):
                 logger.debug(f"Response Body: {response.json()}")
             else:
                 logger.debug("Response Body: empty")
-                
+
             return response
 
         except requests.RequestException as err:
