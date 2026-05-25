@@ -12,6 +12,9 @@ jobs:
     name: Run API Tests (pytest)
     runs-on: ubuntu-latest
 
+    env:
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
     steps:
       - uses: actions/checkout@v4
 
