@@ -43,6 +43,13 @@ class BaseAPI(ABC):
 
         url = f"{self.base_url}{endpoint}"
         headers = self._get_headers(kwargs.pop("extra_headers", None))
+        
+        logger.debug(f"Authorization header exists: {'Authorization' in headers}")
+
+        if "Authorization" in headers:
+            logger.debug(
+                f"Authorization prefix: {headers['Authorization'][:15]}"
+            )
 
         if "json" in kwargs:
             logger.debug(f"Request Body: {kwargs['json']}")
@@ -56,7 +63,10 @@ class BaseAPI(ABC):
             logger.info(f"{method} {url} - Status: {response.status_code}")
 
             if response.content:
-                logger.debug(f"Response Body: {response.json()}")
+                try:
+                    logger.debug(f"Response JSON: {response.json()}")
+                except ValueError:
+                    logger.debug(f"Response Text: {response.text}")
             else:
                 logger.debug("Response Body: empty")
 
