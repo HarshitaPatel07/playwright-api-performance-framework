@@ -18,6 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Debug token
+        run: |
+          if [ -z "$ACCESS_TOKEN" ]; then
+            echo "TOKEN MISSING"
+          else
+            echo "TOKEN PRESENT"
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
