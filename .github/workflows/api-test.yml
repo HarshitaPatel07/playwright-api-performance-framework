@@ -9,7 +9,7 @@ on:
       - "api-tests/**"
 jobs:
   api-tests:
-    name: Run API Test (pytest)
+    name: Run API Tests (pytest)
     runs-on: ubuntu-latest
 
     steps:
