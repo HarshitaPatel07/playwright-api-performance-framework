@@ -31,8 +31,7 @@ class BaseAPI(ABC):
         
         access_token = os.getenv("ACCESS_TOKEN")
         
-        headers = {"Content-Type": "application/json",
-                   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        headers = {"Content-Type": "application/json"
                   }
         if access_token:
             headers["Authorization"] = f"Bearer {access_token}"
