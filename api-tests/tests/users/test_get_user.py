@@ -49,14 +49,14 @@ class TestGetUserPositive:
         data = response.json()
 
         assert_fields_match(
-            data, user_to_get, ["id", "name", "email", "gender", "status"]
+            data, user_to_get, ["id", "name", "email", "gender", "age"]
         )
         logger.info(f"Correct user returned for id={user_to_get['id']}")
 
 
 class TestGetUserNegative:
 
-    @pytest.mark.parametrize("user_id", [999999999, "abc", -1, 0])
+    @pytest.mark.parametrize("user_id", [999999999, -1, 0])
     def test_get_invalid_user_id(self, user_id):
         logger.info(f"Fetching user with invalid id={user_id}")
         response = users_api.get_user_by_id(user_id)

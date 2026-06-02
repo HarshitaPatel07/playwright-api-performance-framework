@@ -40,7 +40,7 @@ class TestCreateUserPositive:
         logger.info(f"User created with id={data['id']}")
 
         assert_field_exists(data, "id")
-        assert_fields_match(data, payload, ["name", "email", "gender", "status"])
+        assert_fields_match(data, payload, ["name", "email", "gender", "age"])
         logger.info("All assertions passed for valid user creation")
 
 

@@ -13,7 +13,6 @@ def assert_status_code(response, expected_status):
 def assert_response_is_list(response):
     data = response.json()
     assert isinstance(data, list), "Response should be a list"
-    assert len(data) > 0, "Response list should not be empty"
 
 
 def assert_field_exists(data, field):

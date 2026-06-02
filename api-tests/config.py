@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()  # Load .env file
 
 # API Configuration
-BASE_URL = os.getenv("BASE_URL", "https://gorest.co.in/public/v2")
+BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 
 # Logging Configuration
