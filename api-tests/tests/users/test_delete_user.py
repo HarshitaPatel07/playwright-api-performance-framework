@@ -52,7 +52,7 @@ class TestDeleteUserNegative:
         assert_status_code(response, 404)
         logger.info("Returned 404 for already deleted user ")
 
-    @pytest.mark.parametrize("user_id", [999999999, "abc"])
+    @pytest.mark.parametrize("user_id", [999999999, -1])
     def test_delete_invalid_user_id(self, user_id):
         logger.info(f"Deleting user with invalid id={user_id}")
         response = users_api.delete_user(user_id)

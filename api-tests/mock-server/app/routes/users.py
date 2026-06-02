@@ -36,7 +36,7 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 
-@router.get("/users/", response_model=List[UserResponse])
+@router.get("/users", response_model=List[UserResponse])
 def get_user(db: Session = Depends(get_db)):
     users = db.query(User).limit(10).all()
 
