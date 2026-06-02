@@ -20,11 +20,19 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
+      - name: Install test dependencies
         run: pip install -r requirements.txt
+
+      - name: Install mock server dependencies
+        run: pip install -r mock_server/requirements.txt
+        working-directory: api-tests
+
+      - name: Start mock server
+        run: |
+          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+          sleep 2
+        working-directory: api-tests/mock_server
 
       - name: Run API tests
         run: pytest tests/ -v --tb=short
         working-directory: api-tests
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
