@@ -24,8 +24,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Install mock server dependencies
-        run: pip install -r mock_server/requirements.txt
-        working-directory: api-tests
+        run: pip install -r app/requirements.txt
+        working-directory: api-tests/mock_server
 
       - name: Start mock server
         run: |
