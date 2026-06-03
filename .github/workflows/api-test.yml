@@ -32,6 +32,8 @@ jobs:
           uvicorn app.main:app --host 0.0.0.0 --port 8000 &
           sleep 2
         working-directory: api-tests/mock-server
+        env:
+          BASE_URL: http://localhost:8000
 
       - name: Run API tests
         run: pytest tests/ -v --tb=short
