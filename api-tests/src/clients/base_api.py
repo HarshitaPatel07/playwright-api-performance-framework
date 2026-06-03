@@ -1,6 +1,7 @@
 """
 Base API class with common functionality.
 """
+
 import requests
 from typing import Optional, Dict
 from abc import ABC, abstractmethod
